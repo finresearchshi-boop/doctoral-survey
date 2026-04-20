@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doctoral Experience Survey</title>
+    <meta
+      name="description"
+      content="A doctoral experience survey hosted on GitHub Pages that submits responses to Google Forms."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="page-chrome"></div>
+
+    <main class="layout">
+      <section class="intro-panel">
+        <div class="intro-copy">
+          <p class="eyebrow">Doctoral Survey</p>
+          <h1 id="survey-title">Doctoral Experience Survey</h1>
+          <p class="intro" id="survey-description">
+            Thank you for taking part. This survey explores doctoral experiences,
+            support, supervision, wellbeing, and success factors. Responses are
+            collected without names or email addresses; please avoid including
+            identifying details in free-text answers if you want to stay anonymous.
+          </p>
+        </div>
+
+        <div class="hero-grid">
+          <article class="spotlight-card">
+            <p class="spotlight-label">Required</p>
+            <p class="spotlight-value">Questions 1-7</p>
+            <p class="spotlight-text">
+              The remaining questions are optional, so participants can finish the
+              survey without completing every reflective item.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <h2>What This Covers</h2>
+            <p>
+              Support, supervision, institutional culture, wellbeing, doctoral
+              development, AI, and advice for new researchers.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <h2>Privacy Note</h2>
+            <p>
+              Responses are routed to Google Forms, but the survey does not ask for
+              names or email addresses.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="form-shell">
+        <section class="card notice hidden" id="setup-notice" aria-live="polite">
+          <h2>Configuration needed</h2>
+          <p>
+            This page is ready, but it still needs your Google Form ID and field entry
+            IDs in <code>survey-config.js</code>.
+          </p>
+        </section>
+
+        <section class="card survey-card">
+          <div class="card-header">
+            <div>
+              <p class="section-kicker">Participant Form</p>
+              <h2>Share Your Doctoral Experience</h2>
+            </div>
+            <p class="required-note">
+              Questions 1-7 are required. Questions 8-13 are optional.
+            </p>
+          </div>
+
+          <form id="survey-form" target="hidden_iframe" method="post" novalidate>
+            <div class="consent-bar">
+              <label class="question consent-question">
+                <span class="consent-copy">
+                  I have read the survey information and I consent to submit my responses.
+                </span>
+                <span class="consent-control">
+                  <input id="consent" name="consent" type="checkbox" required>
+                  <span>Required</span>
+                </span>
+              </label>
+            </div>
+
+            <div class="question-group">
+              <label class="question" for="phd-stage">
+                <span class="question-number">1*</span>
+                <span class="question-copy">
+                  What stage of your PhD are you currently at? If you have completed your
+                  PhD, please select the option that best describes when you completed it.
+                </span>
+              </label>
+              <select id="phd-stage" name="phdStage" required>
+                <option value="">Select one</option>
+                <option value="Year 1">Year 1</option>
+                <option value="Year 2">Year 2</option>
+                <option value="Year 3">Year 3</option>
+                <option value="Year 4 or above">Year 4 or above</option>
+                <option value="Completed within the last year">Completed within the last year</option>
+                <option value="Completed more than one year ago">Completed more than one year ago</option>
+              </select>
+            </div>
+
+            <fieldset class="question-group">
+              <legend class="question">
+                <span class="question-number">2*</span>
+                <span class="question-copy">What is your gender?</span>
+              </legend>
+              <div class="choice-grid choice-grid--wide">
+                <label><input type="radio" name="gender" value="Female" required> Female</label>
+                <label><input type="radio" name="gender" value="Male"> Male</label>
+                <label><input type="radio" name="gender" value="Non-binary"> Non-binary</label>
+                <label><input type="radio" name="gender" value="Prefer not to say"> Prefer not to say</label>
+              </div>
+            </fieldset>
+
+            <fieldset class="question-group">
+              <legend class="question">
+                <span class="question-number">3*</span>
+                <span class="question-copy">Is your PhD full-time or part-time?</span>
+              </legend>
+              <div class="choice-grid choice-grid--compact">
+                <label><input type="radio" name="studyMode" value="Full-time" required> Full-time</label>
+                <label><input type="radio" name="studyMode" value="Part-time"> Part-time</label>
+              </div>
+            </fieldset>
+
+            <fieldset class="question-group">
+              <legend class="question">
+                <span class="question-number">4*</span>
+                <span class="question-copy">What kinds of support were most important to you during your PhD?</span>
+              </legend>
+              <p class="hint">
+                You may wish to reflect on academic guidance, emotional encouragement,
+                feedback on writing, methods or statistics support, peer support, and
+                funding or administrative support.
+              </p>
+              <textarea
+                id="support-important"
+                name="supportImportant"
+                rows="5"
+                placeholder="Describe the forms of support that mattered most to you."
+                required
+              ></textarea>
+            </fieldset>
+
+            <div class="question-group">
+              <label class="question" for="supervisor-relationship">
+                <span class="question-number">5*</span>
+                <span class="question-copy">
+                  How would you describe your relationship with your supervisor(s), and what
+                  aspects of supervision were most helpful or least helpful?
+                </span>
+              </label>
+              <p class="hint">
+                You may wish to consider frequency of meetings, clarity of expectations,
+                style of feedback, availability, encouragement versus independence, and responsiveness.
+              </p>
+              <textarea
+                id="supervisor-relationship"
+                name="supervisorRelationship"
+                rows="5"
+                placeholder="Describe your supervisory relationship and the forms of supervision that helped most or least."
+                required
+              ></textarea>
+            </div>
+
+            <div class="question-group">
+              <label class="question" for="support-changed">
+                <span class="question-number">6*</span>
+                <span class="question-copy">
+                  Did the kind of support you needed change at different stages of the PhD?
+                </span>
+              </label>
+              <p class="hint">
+                You may wish to reflect on the beginning stage, the middle stage, the final
+                writing stage, and when you needed more guidance versus more independence.
+              </p>
+              <textarea
+                id="support-changed"
+                name="supportChanged"
+                rows="5"
+                placeholder="Explain how your support needs changed over time."
+                required
+              ></textarea>
+            </div>
+
+            <div class="question-group">
+              <label class="question" for="institutional-support">
+                <span class="question-number">7*</span>
+                <span class="question-copy">
+                  What institutional or departmental support made a difference to your doctoral experience?
+                </span>
+              </label>
+              <p class="hint">
+                You may wish to consider research training, workshops, cohort activities,
+                funding opportunities, administrative efficiency, writing groups, mentoring,
+                and access to library, data, or software resources.
+              </p>
+              <textarea
+                id="institutional-support"
+                name="institutionalSupport"
+                rows="5"
+                placeholder="Describe the institutional or departmental support that shaped your experience."
+                required
+              ></textarea>
+            </div>
+
+            <div class="question-group">
+              <label class="question" for="research-culture">
+                <span class="question-number">8</span>
+                <span class="question-copy">
+                  How would you describe the research culture or sense of community around your PhD?
+                </span>
+              </label>
+              <p class="hint">
+                You may wish to reflect on whether you felt connected or isolated,
+                opportunities to present work, informal peer networks, belonging in the
+                department, and intellectual community.
+              </p>
+              <textarea
+                id="research-culture"
+                name="researchCulture"
+                rows="5"
+                placeholder="Describe the research culture and community around your PhD."
+              ></textarea>
+            </div>
+
+            <div class="question-group">
+              <label class="question" for="biggest-challenges">
+                <span class="question-number">9</span>
+                <span class="question-copy">
+                  What were the biggest challenges you faced during your PhD, and how did you manage them?
+                </span>
+              </label>
+              <p class="hint">
+                You may wish to consider motivation, time management, writing confidence,
+                uncertainty, methodology, supervision issues, isolation, work-life balance,
+                and family or career pressures.
+              </p>
+              <textarea
+                id="biggest-challenges"
+                name="biggestChallenges"
+                rows="5"
+                placeholder="Describe the main challenges you encountered and how you responded to them."
+              ></textarea>
+            </div>
+
+            <div class="question-group">
+              <label class="question" for="wellbeing-balance">
+                <span class="question-number">10</span>
+                <span class="question-copy">
+                  How manageable was wellbeing and work-life balance during your PhD?
+                </span>
+              </label>
+              <p class="hint">
+                You may wish to reflect on periods of stress or burnout, what helped maintain
+                motivation, boundaries between work and life, and whether your institution or
+                supervisor offered useful support.
+              </p>
+              <textarea
+                id="wellbeing-balance"
+                name="wellbeingBalance"
+                rows="5"
+                placeholder="Describe how manageable wellbeing and work-life balance felt during your PhD."
+              ></textarea>
+            </div>
+
+            <div class="question-group">
+              <label class="question" for="success-factors">
+                <span class="question-number">11</span>
+                <span class="question-copy">
+                  What do you think were the key factors that contributed to a successful PhD experience?
+                </span>
+              </label>
+              <p class="hint">
+                You may wish to reflect on personal qualities, supervisor practices,
+                institutional culture, peer community, resources, and timing or life circumstances.
+              </p>
+              <textarea
+                id="success-factors"
+                name="successFactors"
+                rows="5"
+                placeholder="Explain what you believe contributes most to a successful PhD experience."
+              ></textarea>
+            </div>
+
+            <div class="question-group">
+              <label class="question" for="ai-impact">
+                <span class="question-number">12</span>
+                <span class="question-copy">
+                  Do you think AI tools are changing how doctoral students learn, develop independence, or interact with supervisors? If so, in what ways?
+                </span>
+              </label>
+              <p class="hint">
+                You may wish to reflect on learning processes, research support, writing,
+                feedback, independence, supervisory relationships, and how expectations may be shifting.
+              </p>
+              <textarea
+                id="ai-impact"
+                name="aiImpact"
+                rows="5"
+                placeholder="Describe whether and how AI tools are shaping doctoral learning, independence, or supervision."
+              ></textarea>
+            </div>
+
+            <div class="question-group">
+              <label class="question" for="advice-new-student">
+                <span class="question-number">13</span>
+                <span class="question-copy">
+                  If you could give one piece of advice to a new PhD student starting today, what would it be?
+                </span>
+              </label>
+              <textarea
+                id="advice-new-student"
+                name="adviceNewStudent"
+                rows="4"
+                placeholder="Share one piece of advice you think would really matter."
+              ></textarea>
+            </div>
+
+            <p class="form-error hidden" id="form-error" aria-live="assertive"></p>
+
+            <div class="form-footer">
+              <p class="submit-note">
+                Submitting will send your response to the research form and then move you to a separate thank-you page.
+              </p>
+              <button class="submit-button" id="submit-button" type="submit">Submit survey</button>
+            </div>
+          </form>
+        </section>
+      </section>
+    </main>
+
+    <iframe name="hidden_iframe" id="hidden_iframe" class="hidden"></iframe>
+
+    <script src="survey-config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
