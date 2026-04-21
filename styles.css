@@ -127,7 +127,7 @@ h2 {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 1rem;
 }
 
@@ -140,7 +140,7 @@ h2 {
 }
 
 .spotlight-card {
-  min-height: 15rem;
+  min-height: 0;
   padding: 1.4rem;
   border-radius: 28px;
   background:
@@ -195,17 +195,14 @@ h2 {
 }
 
 .card-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  align-items: end;
   padding-bottom: 1.1rem;
   margin-bottom: 1.3rem;
   border-bottom: 1px solid var(--line);
 }
 
 .required-note {
-  max-width: 18rem;
+  display: inline-block;
+  max-width: 32rem;
   margin: 0;
   padding: 0.85rem 1rem;
   border-radius: 18px;
@@ -272,6 +269,10 @@ h2 {
   margin: 0.75rem 0 0;
   color: var(--muted);
   line-height: 1.7;
+}
+
+.step-header .required-note {
+  margin-top: 1rem;
 }
 
 .consent-bar {
@@ -500,12 +501,6 @@ input:focus {
   display: none;
 }
 
-@media (max-width: 1040px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (max-width: 760px) {
   .layout {
     width: min(100% - 1rem, 1280px);
@@ -513,7 +508,6 @@ input:focus {
   }
 
   .hero-grid,
-  .card-header,
   .form-footer,
   .consent-question,
   .step-actions,

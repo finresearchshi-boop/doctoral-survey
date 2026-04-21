@@ -46,8 +46,8 @@
           <article class="info-card">
             <h2>Two-Part Format</h2>
             <p>
-              Page 1 covers concise background information. Page 2 moves into the
-              longer reflective questions so the survey feels lighter to begin with.
+              Page 1 covers background information. Page 2 contains the main survey
+              questions.
             </p>
           </article>
 
@@ -76,9 +76,6 @@
               <p class="section-kicker">Participant Form</p>
               <h2>Share Your Doctoral Experience</h2>
             </div>
-            <p class="required-note">
-              Required: background questions and Questions 9-12. Optional: Questions 13-18.
-            </p>
           </div>
 
           <div class="form-progress" aria-label="Survey progress">
@@ -95,11 +92,10 @@
           <form id="survey-form" target="hidden_iframe" method="post" novalidate>
             <section class="form-step is-active" data-step="1" aria-labelledby="background-heading">
               <div class="step-header">
-                <p class="section-kicker">Part 1 of 2</p>
                 <h3 id="background-heading">Background Questions</h3>
                 <p class="step-summary">
-                  This first page collects key background context. All questions in this
-                  section are required.
+                  Please answer the background questions below before continuing to the
+                  main survey.
                 </p>
               </div>
 
@@ -117,7 +113,7 @@
 
               <div class="question-group">
                 <label class="question" for="phd-stage">
-                  <span class="question-number">1*</span>
+                  <span class="question-number">1</span>
                   <span class="question-copy">
                     What stage of your PhD are you currently at? If you have completed your
                     PhD, please select the option that best describes when you completed it.
@@ -136,7 +132,7 @@
 
               <fieldset class="question-group">
                 <legend class="question">
-                  <span class="question-number">2*</span>
+                  <span class="question-number">2</span>
                   <span class="question-copy">What is your gender?</span>
                 </legend>
                 <div class="choice-grid choice-grid--wide">
@@ -149,7 +145,7 @@
 
               <fieldset class="question-group">
                 <legend class="question">
-                  <span class="question-number">3*</span>
+                  <span class="question-number">3</span>
                   <span class="question-copy">Is your PhD full-time or part-time?</span>
                 </legend>
                 <div class="choice-grid choice-grid--compact">
@@ -160,7 +156,7 @@
 
               <div class="question-group">
                 <label class="question" for="funding-status">
-                  <span class="question-number">4*</span>
+                  <span class="question-number">4</span>
                   <span class="question-copy">
                     What best describes how your PhD has been funded?
                   </span>
@@ -178,7 +174,7 @@
 
               <fieldset class="question-group">
                 <legend class="question">
-                  <span class="question-number">5*</span>
+                  <span class="question-number">5</span>
                   <span class="question-copy">
                     To what extent have funding or financial pressures affected your PhD experience?
                   </span>
@@ -194,7 +190,7 @@
 
               <div class="question-group">
                 <label class="question" for="abroad-plans">
-                  <span class="question-number">6*</span>
+                  <span class="question-number">6</span>
                   <span class="question-copy">
                     What best describes your plans or experience with research activity abroad during your PhD?
                   </span>
@@ -212,9 +208,9 @@
 
               <div class="question-group">
                 <label class="question" for="conference-support">
-                  <span class="question-number">7*</span>
+                  <span class="question-number">7</span>
                   <span class="question-copy">
-                    What best describes your conference presentation experience and support needs?
+                    Which option best describes your conference presentation experience or support needs, whether during or after the PhD?
                   </span>
                 </label>
                 <select id="conference-support" name="conferenceSupport" required>
@@ -229,9 +225,9 @@
 
               <div class="question-group">
                 <label class="question" for="career-plans">
-                  <span class="question-number">8*</span>
+                  <span class="question-number">8</span>
                   <span class="question-copy">
-                    Which option best describes your current career direction or intended next step after the PhD?
+                    Which option best describes your current or intended career pathway in relation to your PhD?
                   </span>
                 </label>
                 <select id="career-plans" name="careerPlans" required>
@@ -256,10 +252,12 @@
 
             <section class="form-step" data-step="2" aria-labelledby="main-heading" hidden>
               <div class="step-header">
-                <p class="section-kicker">Part 2 of 2</p>
                 <h3 id="main-heading">Main Survey Questions</h3>
                 <p class="step-summary">
-                  Questions 9-12 are required. Questions 13-18 are optional.
+                  Please answer Questions 9-12. Questions 13-18 are optional.
+                </p>
+                <p class="required-note">
+                  Required: Questions 9-12. Optional: Questions 13-18.
                 </p>
               </div>
 
