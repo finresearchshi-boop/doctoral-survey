@@ -9,6 +9,8 @@
   const title = document.getElementById("survey-title");
   const description = document.getElementById("survey-description");
   const hiddenFrame = document.getElementById("hidden_iframe");
+  const mainHeading = document.getElementById("main-heading");
+  const backgroundHeading = document.getElementById("background-heading");
   const steps = Array.from(document.querySelectorAll("[data-step]"));
   const progressSteps = Array.from(document.querySelectorAll("[data-progress-step]"));
   let currentStep = 1;
@@ -134,7 +136,9 @@
       }
 
       setStep(2);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (mainHeading) {
+        mainHeading.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
   }
 
@@ -142,7 +146,9 @@
     backButton.addEventListener("click", function () {
       clearError();
       setStep(1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (backgroundHeading) {
+        backgroundHeading.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
   }
 

@@ -49,13 +49,9 @@ body {
 .layout {
   position: relative;
   z-index: 1;
-  width: min(1280px, calc(100% - 2rem));
+  width: min(1040px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 2rem 0 4rem;
-  display: grid;
-  grid-template-columns: minmax(300px, 0.95fr) minmax(0, 1.25fr);
-  gap: 1.5rem;
-  align-items: start;
 }
 
 .intro-panel,
@@ -64,10 +60,9 @@ body {
 }
 
 .intro-panel {
-  position: sticky;
-  top: 1.5rem;
   display: grid;
   gap: 1.2rem;
+  margin-bottom: 1.5rem;
 }
 
 .intro-copy {
@@ -132,7 +127,7 @@ h2 {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: minmax(0, 1.35fr) repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -145,8 +140,7 @@ h2 {
 }
 
 .spotlight-card {
-  grid-row: span 2;
-  min-height: 20rem;
+  min-height: 15rem;
   padding: 1.4rem;
   border-radius: 28px;
   background:
@@ -263,6 +257,10 @@ h2 {
 
 .form-step[hidden] {
   display: none;
+}
+
+.form-step.is-active {
+  display: block;
 }
 
 .step-header {
@@ -503,12 +501,8 @@ input:focus {
 }
 
 @media (max-width: 1040px) {
-  .layout {
+  .hero-grid {
     grid-template-columns: 1fr;
-  }
-
-  .intro-panel {
-    position: static;
   }
 }
 
