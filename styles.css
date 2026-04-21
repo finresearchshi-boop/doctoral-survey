@@ -49,12 +49,12 @@ body {
 .layout {
   position: relative;
   z-index: 1;
-  width: min(1280px, calc(100% - 2rem));
+  width: min(1360px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 2rem 0 4rem;
   display: grid;
-  grid-template-columns: minmax(300px, 0.95fr) minmax(0, 1.25fr);
-  gap: 1.5rem;
+  grid-template-columns: minmax(320px, 430px) minmax(0, 1fr);
+  gap: 2rem;
   align-items: start;
 }
 
@@ -557,7 +557,7 @@ input:focus {
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 720px) {
   .layout {
     grid-template-columns: 1fr;
   }
