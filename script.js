@@ -3,10 +3,15 @@
   const form = document.getElementById("survey-form");
   const setupNotice = document.getElementById("setup-notice");
   const errorBox = document.getElementById("form-error");
+  const nextButton = document.getElementById("next-step");
+  const backButton = document.getElementById("back-step");
   const submitButton = document.getElementById("submit-button");
   const title = document.getElementById("survey-title");
   const description = document.getElementById("survey-description");
   const hiddenFrame = document.getElementById("hidden_iframe");
+  const steps = Array.from(document.querySelectorAll("[data-step]"));
+  const progressSteps = Array.from(document.querySelectorAll("[data-progress-step]"));
+  let currentStep = 1;
   let hasSubmitted = false;
 
   const requiredMappings = [
@@ -14,6 +19,11 @@
     "phdStage",
     "gender",
     "studyMode",
+    "fundingStatus",
+    "fundingIssues",
+    "abroadPlans",
+    "conferenceSupport",
+    "careerPlans",
     "supportImportant",
     "supervisorRelationship",
     "supportChanged",
@@ -46,7 +56,12 @@
 
   if (!isConfigured) {
     setupNotice.classList.remove("hidden");
-    submitButton.disabled = true;
+    if (nextButton) {
+      nextButton.disabled = true;
+    }
+    if (submitButton) {
+      submitButton.disabled = true;
+    }
   } else {
     form.action = `https://docs.google.com/forms/d/e/${googleForm.formId}/formResponse`;
   }
@@ -74,6 +89,63 @@
     errorBox.classList.add("hidden");
   }
 
+  function setStep(stepNumber) {
+    currentStep = stepNumber;
+
+    steps.forEach(function (step) {
+      const isActive = Number(step.dataset.step) === stepNumber;
+      step.hidden = !isActive;
+      step.classList.toggle("is-active", isActive);
+    });
+
+    progressSteps.forEach(function (step) {
+      step.classList.toggle("is-active", Number(step.dataset.progressStep) === stepNumber);
+    });
+  }
+
+  function validateStep(stepNumber) {
+    const step = steps.find(function (candidate) {
+      return Number(candidate.dataset.step) === stepNumber;
+    });
+
+    if (!step) {
+      return true;
+    }
+
+    const requiredFields = Array.from(step.querySelectorAll("[required]"));
+
+    for (const field of requiredFields) {
+      if (!field.checkValidity()) {
+        field.reportValidity();
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener("click", function () {
+      clearError();
+
+      if (!validateStep(1)) {
+        showError("Please complete the required background questions before continuing.");
+        return;
+      }
+
+      setStep(2);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  if (backButton) {
+    backButton.addEventListener("click", function () {
+      clearError();
+      setStep(1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
   form.addEventListener("submit", function (event) {
     clearError();
 
@@ -96,6 +168,11 @@
     appendHiddenField(fields.phdStage, data.get("phdStage") || "");
     appendHiddenField(fields.gender, data.get("gender") || "");
     appendHiddenField(fields.studyMode, data.get("studyMode") || "");
+    appendHiddenField(fields.fundingStatus, data.get("fundingStatus") || "");
+    appendHiddenField(fields.fundingIssues, data.get("fundingIssues") || "");
+    appendHiddenField(fields.abroadPlans, data.get("abroadPlans") || "");
+    appendHiddenField(fields.conferenceSupport, data.get("conferenceSupport") || "");
+    appendHiddenField(fields.careerPlans, data.get("careerPlans") || "");
     appendHiddenField(fields.supportImportant, data.get("supportImportant") || "");
     appendHiddenField(fields.supervisorRelationship, data.get("supervisorRelationship") || "");
     appendHiddenField(fields.supportChanged, data.get("supportChanged") || "");
@@ -119,4 +196,6 @@
     form.reset();
     window.location.href = thankYouUrl;
   });
+
+  setStep(1);
 })();
