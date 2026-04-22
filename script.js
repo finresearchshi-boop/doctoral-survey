@@ -8,13 +8,10 @@
   const submitButton = document.getElementById("submit-button");
   const title = document.getElementById("survey-title");
   const description = document.getElementById("survey-description");
-  const hiddenFrame = document.getElementById("hidden_iframe");
   const mainHeading = document.getElementById("main-heading");
   const backgroundHeading = document.getElementById("background-heading");
   const steps = Array.from(document.querySelectorAll("[data-step]"));
   const progressSteps = Array.from(document.querySelectorAll("[data-progress-step]"));
-  let currentStep = 1;
-  let hasSubmitted = false;
 
   const requiredMappings = [
     "consent",
@@ -68,19 +65,6 @@
     form.action = `https://docs.google.com/forms/d/e/${googleForm.formId}/formResponse`;
   }
 
-  function clearHiddenFields() {
-    form.querySelectorAll("[data-google-field='true']").forEach((node) => node.remove());
-  }
-
-  function appendHiddenField(name, value) {
-    const input = document.createElement("input");
-    input.type = "hidden";
-    input.name = name;
-    input.value = value;
-    input.setAttribute("data-google-field", "true");
-    form.appendChild(input);
-  }
-
   function showError(message) {
     errorBox.textContent = message;
     errorBox.classList.remove("hidden");
@@ -92,8 +76,6 @@
   }
 
   function setStep(stepNumber) {
-    currentStep = stepNumber;
-
     steps.forEach(function (step) {
       const isActive = Number(step.dataset.step) === stepNumber;
       step.hidden = !isActive;
@@ -153,54 +135,67 @@
   }
 
   form.addEventListener("submit", function (event) {
+    async function submitSurvey() {
+      clearError();
+
+      if (!isConfigured) {
+        showError("Update survey-config.js with your Google Form ID and entry IDs before publishing.");
+        return;
+      }
+
+      if (!form.reportValidity()) {
+        showError("Please complete the required questions before submitting.");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+
+      const data = new FormData(form);
+      const payload = new URLSearchParams();
+
+      payload.append(fields.consent, data.get("consent") ? "I consent" : "");
+      payload.append(fields.phdStage, data.get("phdStage") || "");
+      payload.append(fields.gender, data.get("gender") || "");
+      payload.append(fields.studyMode, data.get("studyMode") || "");
+      payload.append(fields.fundingStatus, data.get("fundingStatus") || "");
+      payload.append(fields.fundingIssues, data.get("fundingIssues") || "");
+      payload.append(fields.abroadPlans, data.get("abroadPlans") || "");
+      payload.append(fields.conferenceSupport, data.get("conferenceSupport") || "");
+      payload.append(fields.careerPlans, data.get("careerPlans") || "");
+      payload.append(fields.supportImportant, data.get("supportImportant") || "");
+      payload.append(fields.supervisorRelationship, data.get("supervisorRelationship") || "");
+      payload.append(fields.supportChanged, data.get("supportChanged") || "");
+      payload.append(fields.institutionalSupport, data.get("institutionalSupport") || "");
+      payload.append(fields.researchCulture, data.get("researchCulture") || "");
+      payload.append(fields.biggestChallenges, data.get("biggestChallenges") || "");
+      payload.append(fields.wellbeingBalance, data.get("wellbeingBalance") || "");
+      payload.append(fields.successFactors, data.get("successFactors") || "");
+      payload.append(fields.aiImpact, data.get("aiImpact") || "");
+      payload.append(fields.adviceNewStudent, data.get("adviceNewStudent") || "");
+
+      try {
+        await fetch(form.action, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+          },
+          body: payload.toString()
+        });
+
+        form.reset();
+        window.location.href = thankYouUrl;
+      } catch (error) {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit survey";
+        showError("The survey could not be submitted. Please try again.");
+      }
+    }
+
     clearError();
-
-    if (!isConfigured) {
-      event.preventDefault();
-      showError("Update survey-config.js with your Google Form ID and entry IDs before publishing.");
-      return;
-    }
-
-    if (!form.reportValidity()) {
-      event.preventDefault();
-      showError("Please complete the required questions before submitting.");
-      return;
-    }
-
-    clearHiddenFields();
-
-    const data = new FormData(form);
-    appendHiddenField(fields.consent, data.get("consent") ? "I consent" : "");
-    appendHiddenField(fields.phdStage, data.get("phdStage") || "");
-    appendHiddenField(fields.gender, data.get("gender") || "");
-    appendHiddenField(fields.studyMode, data.get("studyMode") || "");
-    appendHiddenField(fields.fundingStatus, data.get("fundingStatus") || "");
-    appendHiddenField(fields.fundingIssues, data.get("fundingIssues") || "");
-    appendHiddenField(fields.abroadPlans, data.get("abroadPlans") || "");
-    appendHiddenField(fields.conferenceSupport, data.get("conferenceSupport") || "");
-    appendHiddenField(fields.careerPlans, data.get("careerPlans") || "");
-    appendHiddenField(fields.supportImportant, data.get("supportImportant") || "");
-    appendHiddenField(fields.supervisorRelationship, data.get("supervisorRelationship") || "");
-    appendHiddenField(fields.supportChanged, data.get("supportChanged") || "");
-    appendHiddenField(fields.institutionalSupport, data.get("institutionalSupport") || "");
-    appendHiddenField(fields.researchCulture, data.get("researchCulture") || "");
-    appendHiddenField(fields.biggestChallenges, data.get("biggestChallenges") || "");
-    appendHiddenField(fields.wellbeingBalance, data.get("wellbeingBalance") || "");
-    appendHiddenField(fields.successFactors, data.get("successFactors") || "");
-    appendHiddenField(fields.aiImpact, data.get("aiImpact") || "");
-    appendHiddenField(fields.adviceNewStudent, data.get("adviceNewStudent") || "");
-    hasSubmitted = true;
-    submitButton.disabled = true;
-    submitButton.textContent = "Sending...";
-  });
-
-  hiddenFrame.addEventListener("load", function () {
-    if (!isConfigured || !hasSubmitted) {
-      return;
-    }
-
-    form.reset();
-    window.location.href = thankYouUrl;
+    event.preventDefault();
+    submitSurvey();
   });
 
   setStep(1);
